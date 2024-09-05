@@ -1,12 +1,14 @@
 server: # Configuracao do servidor
-  port: 8080 # Porta que a aplicacao ira rodar
+  port: 8000 # Porta que a aplicacao ira rodar
 
 spring: # Configuracao do spring
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   application:
     name: gestao-usuarios  # Nome que a aplicacao tera
-          
+    profiles:
+      active: dev
+
 sql: # Configuracao do JPA
   init: # Ao incializar
     continue-on-error: true # Se a conexao falhar, a aplicacao continua a rodar
