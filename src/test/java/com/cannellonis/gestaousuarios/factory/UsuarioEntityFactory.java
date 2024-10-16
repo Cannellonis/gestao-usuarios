@@ -7,9 +7,9 @@ public class UsuarioEntityFactory {
     public static UsuarioEntity usuarioEntityValido() {
         return new UsuarioEntity()
                 .toBuilder()
-                .email("juanitomaneiro@gmail.com")
-                .nome("Juanito Maneiro")
-                .senha("juanito123").
+                .nome("Felipinho Maneiro")
+                .email("felipinhomaneiro@gmail.com")
+                .senha("123456789").
                 build();
     }
 }

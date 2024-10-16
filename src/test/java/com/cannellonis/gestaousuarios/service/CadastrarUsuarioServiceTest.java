@@ -2,6 +2,7 @@ package com.cannellonis.gestaousuarios.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import com.cannellonis.gestaousuarios.factory.CadastrarUsuarioDtoFactory;
@@ -12,6 +13,7 @@ import com.cannellonis.gestaousuarios.infrastructure.mapper.UsuarioMapperImpl;
 import com.cannellonis.gestaousuarios.infrastructure.repository.UsuarioRepository;
 import com.cannellonis.gestaousuarios.infrastructure.repository.entity.UsuarioEntity;
 import com.cannellonis.gestaousuarios.presentation.dto.CadastrarUsuarioDto;
+import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastroUsuarioDto;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -33,11 +35,7 @@ class CadastrarUsuarioServiceTest {
     @InjectMocks
     private CadastrarUsuarioService service;
     @Captor
-    private ArgumentCaptor<CadastrarUsuarioService> cadastrarUsuarioServiceCaptor;
-    @Captor
     private ArgumentCaptor<UsuarioEntity> usuarioEntityCaptor;
-    @Captor
-    private ArgumentCaptor<CadastrarUsuarioDto> cadastrarUsuarioDtoCaptor;
 
     @Test
     void deve_retornar_UsuarioJaPossuiCadastroException_ao_cadastrar_usuario_existente() {
@@ -48,7 +46,6 @@ class CadastrarUsuarioServiceTest {
         assertThrows(UsuarioJaPossuiCadastroException.class,
                 () -> service.cadastrarUsuario(usuarioDtoMockValido),
                 "Usuário com esse email já possui cadastro.");
-
     }
 
     @Test
@@ -58,8 +55,10 @@ class CadastrarUsuarioServiceTest {
         final UsuarioEntity usuarioEntityMockValido = UsuarioEntityFactory.usuarioEntityValido();
 
         when(repository.existsByEmail(usuarioDtoMockValido.email())).thenReturn(false);
-        when(repository.save(usuarioEntityCaptor.getValue())).thenReturn(usuarioEntityMockValido);
+        doReturn(usuarioEntityMockValido).when(repository).save(usuarioEntityCaptor.capture());
 
-        assertEquals(usuarioDtoMockValido, cadastrarUsuarioDtoCaptor.getValue());
+        final RespostaCadastroUsuarioDto respostaService = service.cadastrarUsuario(usuarioDtoMockValido);
+        assertEquals(usuarioDtoMockValido.email(), respostaService.email());
+        assertEquals(usuarioDtoMockValido.nome(), respostaService.nome());
     }
 }
