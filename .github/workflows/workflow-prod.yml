@@ -13,15 +13,17 @@ jobs:
   continuous-integration:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Clonando repositorio
+        uses: actions/checkout@v3
+
       - name: Configurando JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '21'
 
-      - name: Testando com Maven
-        run: mvn install
+      - name: Teste e Build com Maven
+        run: mvn -B -q install
 
-      - name: Testando com Checkstyle
+      - name: Teste com Checkstyle
         run: mvn checkstyle:check
