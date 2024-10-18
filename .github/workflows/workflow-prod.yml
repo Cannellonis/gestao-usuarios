@@ -1,0 +1,26 @@
+name: Continuos Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurando JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+
+      - name: Testando com Maven
+        run: mvn install
+
+      - name: Testando com Checkstyle
+        run: mvn checkstyle:check
