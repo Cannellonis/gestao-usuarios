@@ -29,4 +29,4 @@ spring: # Configuracao do spring
 
   jpa:  # Configuracao do JPA
     generate-ddl: false # Gerar as tabelas mapeadas com @Entity
-    show-sql: true # Exibir codigos SQL no terminal
+    show-sql: false # Exibir codigos SQL no terminal
