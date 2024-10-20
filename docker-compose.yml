@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: db_turno_tatico
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: TURNO_TATICO
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
+
+  adminer:
+      image: adminer
+      container_name: adminer_turno_tatico
+      ports:
+        - 8080:8080
+
+volumes:
+  db_data:
