@@ -4,7 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### TERRAFORM ###
-.terraform/**
+.terraform/
 .terraform.lock.hcl
 
 ### STS ###
