@@ -3,6 +3,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### TERRAFORM ###
+.terraform/**
+.terraform.lock.hcl
+
 ### STS ###
 .apt_generated
 .classpath
