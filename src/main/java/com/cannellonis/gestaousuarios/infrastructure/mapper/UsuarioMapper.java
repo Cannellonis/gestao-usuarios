@@ -2,7 +2,7 @@ package com.cannellonis.gestaousuarios.infrastructure.mapper;
 
 import com.cannellonis.gestaousuarios.infrastructure.repository.entity.UsuarioEntity;
 import com.cannellonis.gestaousuarios.presentation.dto.CadastrarUsuarioDto;
-import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastroUsuarioDto;
+import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastrarUsuarioDto;
 import com.cannellonis.gestaousuarios.service.domain.UsuarioDomain;
 import org.mapstruct.Mapper;
 
@@ -13,5 +13,5 @@ public interface UsuarioMapper {
 
     UsuarioEntity entradaDtoToEntity(CadastrarUsuarioDto dadosUsuario);
 
-    RespostaCadastroUsuarioDto entityToRespostaDto(UsuarioEntity usuarioSalvo);
+    RespostaCadastrarUsuarioDto entityToRespostaDto(UsuarioEntity usuarioSalvo);
 }

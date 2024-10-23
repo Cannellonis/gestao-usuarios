@@ -13,7 +13,7 @@ import com.cannellonis.gestaousuarios.infrastructure.mapper.UsuarioMapperImpl;
 import com.cannellonis.gestaousuarios.infrastructure.repository.UsuarioRepository;
 import com.cannellonis.gestaousuarios.infrastructure.repository.entity.UsuarioEntity;
 import com.cannellonis.gestaousuarios.presentation.dto.CadastrarUsuarioDto;
-import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastroUsuarioDto;
+import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastrarUsuarioDto;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ class CadastrarUsuarioServiceTest {
         when(repository.existsByEmail(usuarioDtoMockValido.email())).thenReturn(false);
         doReturn(usuarioEntityMockValido).when(repository).save(usuarioEntityCaptor.capture());
 
-        final RespostaCadastroUsuarioDto respostaService = service.cadastrarUsuario(usuarioDtoMockValido);
+        final RespostaCadastrarUsuarioDto respostaService = service.cadastrarUsuario(usuarioDtoMockValido);
         assertEquals(usuarioDtoMockValido.email(), respostaService.email());
         assertEquals(usuarioDtoMockValido.nome(), respostaService.nome());
     }

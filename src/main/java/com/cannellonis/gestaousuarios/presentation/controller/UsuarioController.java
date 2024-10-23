@@ -1,7 +1,7 @@
 package com.cannellonis.gestaousuarios.presentation.controller;
 
 import com.cannellonis.gestaousuarios.presentation.dto.CadastrarUsuarioDto;
-import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastroUsuarioDto;
+import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastrarUsuarioDto;
 import com.cannellonis.gestaousuarios.service.CadastrarUsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public RespostaCadastroUsuarioDto endpointCadastrarUsuario(@RequestBody @Valid CadastrarUsuarioDto dadosUsuario) {
+    public RespostaCadastrarUsuarioDto endpointCadastrarUsuario(@RequestBody @Valid CadastrarUsuarioDto dadosUsuario) {
 
         return cadastrarUsuarioService.cadastrarUsuario(dadosUsuario);
     }
