@@ -6,6 +6,8 @@ import com.cannellonis.gestaousuarios.infrastructure.repository.UsuarioRepositor
 import com.cannellonis.gestaousuarios.infrastructure.repository.entity.UsuarioEntity;
 import com.cannellonis.gestaousuarios.presentation.dto.CadastrarUsuarioDto;
 import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastrarUsuarioDto;
+import com.cannellonis.gestaousuarios.service.domain.UsuarioDomain;
+import com.cannellonis.gestaousuarios.utils.CargoUsuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +24,13 @@ public class CadastrarUsuarioService {
             throw new UsuarioJaPossuiCadastroException("Usuário com esse email já possui cadastro.");
         }
 
-        final UsuarioEntity salvarUsuario = usuarioMapper.entradaDtoToEntity(dadosUsuario);
+        final UsuarioDomain usuarioDomain = usuarioMapper.entradaDtoToDomain(dadosUsuario);
+
+        usuarioDomain.setCargo(CargoUsuario.USUARIO);
+
+        final UsuarioEntity salvarUsuario = usuarioMapper.domainToEntity(usuarioDomain);
         final UsuarioEntity usuarioSalvo = usuarioRepository.save(salvarUsuario);
 
         return usuarioMapper.entityToRespostaDto(usuarioSalvo);
     }
-
 }

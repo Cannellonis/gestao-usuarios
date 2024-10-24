@@ -13,5 +13,7 @@ public interface UsuarioMapper {
 
     UsuarioEntity entradaDtoToEntity(CadastrarUsuarioDto dadosUsuario);
 
+    UsuarioEntity domainToEntity(UsuarioDomain usuarioDomain);
+
     RespostaCadastrarUsuarioDto entityToRespostaDto(UsuarioEntity usuarioSalvo);
 }
