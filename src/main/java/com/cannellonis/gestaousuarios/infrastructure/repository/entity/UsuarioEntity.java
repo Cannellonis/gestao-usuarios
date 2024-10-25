@@ -1,7 +1,10 @@
 package com.cannellonis.gestaousuarios.infrastructure.repository.entity;
 
 import com.cannellonis.gestaousuarios.utils.CargoUsuario;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -28,10 +31,12 @@ public class UsuarioEntity implements UserDetails {
     String nome;
     String email;
     String senha;
+    @Column(columnDefinition = "ENUM('ADMIN', 'USUARIO')")
+    @Enumerated(EnumType.STRING)
     CargoUsuario cargo;
-    @UpdateTimestamp
-    LocalDateTime criado;
     @CreationTimestamp
+    LocalDateTime criado;
+    @UpdateTimestamp
     LocalDateTime atualizado;
 
     @Generated
@@ -60,9 +65,9 @@ public class UsuarioEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.cargo == CargoUsuario.ADMIN) {
-            return List.of(new SimpleGrantedAuthority("CARGO_ADMIN"), new SimpleGrantedAuthority("CARGO_USUARIO"));
+            return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("CARGO_USUARIO"));
         } else {
-            return List.of(new SimpleGrantedAuthority("CARGO_USUARIO"));
+            return List.of(new SimpleGrantedAuthority("USUARIO"));
         }
     }
 

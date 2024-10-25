@@ -20,17 +20,20 @@ public class CadastrarUsuarioService {
 
     public RespostaCadastrarUsuarioDto cadastrarUsuario(CadastrarUsuarioDto dadosUsuario) {
 
-        if (Boolean.TRUE.equals(usuarioRepository.existsByEmail(dadosUsuario.email()))) {
+        if (existeEmail(dadosUsuario.email())) {
             throw new UsuarioJaPossuiCadastroException("Usuário com esse email já possui cadastro.");
         }
 
         final UsuarioDomain usuarioDomain = usuarioMapper.entradaDtoToDomain(dadosUsuario);
-
         usuarioDomain.setCargo(CargoUsuario.USUARIO);
 
         final UsuarioEntity salvarUsuario = usuarioMapper.domainToEntity(usuarioDomain);
         final UsuarioEntity usuarioSalvo = usuarioRepository.save(salvarUsuario);
 
         return usuarioMapper.entityToRespostaDto(usuarioSalvo);
+    }
+
+    private Boolean existeEmail(String email) {
+        return usuarioRepository.existsByEmail(email);
     }
 }

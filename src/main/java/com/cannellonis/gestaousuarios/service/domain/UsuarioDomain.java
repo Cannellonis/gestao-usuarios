@@ -4,6 +4,7 @@ import com.cannellonis.gestaousuarios.utils.CargoUsuario;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Getter
 @Setter
@@ -28,9 +29,10 @@ public class UsuarioDomain {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
+        this.senha = new BCryptPasswordEncoder().encode(senha);
         this.cargo = cargo;
         this.criado = criado;
         this.atualizado = atualizado;
     }
+
 }
