@@ -26,6 +26,6 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(UsuarioJaPossuiCadastroException.class)
     private ProblemDetail usuarioJaPossuiCadastroExceptionHandler(UsuarioJaPossuiCadastroException ex) {
-        return problemDetailBuilder(HttpStatus.BAD_REQUEST, "Erro ao cadastrar cliente", ex.getMessage());
+        return problemDetailBuilder(HttpStatus.CONFLICT, "Erro ao cadastrar cliente", ex.getMessage());
     }
 }
