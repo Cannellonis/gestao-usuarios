@@ -1,11 +1,12 @@
 package com.cannellonis.gestaousuarios.presentation.controller;
 
+import com.cannellonis.gestaousuarios.infrastructure.repository.entity.UsuarioEntity;
+import com.cannellonis.gestaousuarios.infrastructure.security.TokenService;
 import com.cannellonis.gestaousuarios.presentation.dto.CadastrarUsuarioDto;
 import com.cannellonis.gestaousuarios.presentation.dto.LogarUsuarioDto;
 import com.cannellonis.gestaousuarios.presentation.dto.RespostaCadastrarUsuarioDto;
 import com.cannellonis.gestaousuarios.presentation.dto.RespostaLogarUsuarioDto;
 import com.cannellonis.gestaousuarios.service.CadastrarUsuarioService;
-import com.cannellonis.gestaousuarios.service.LogarUsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsuarioController {
 
     private final CadastrarUsuarioService cadastrarUsuarioService;
-    private final LogarUsuarioService logarUsuarioService;
     private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -41,8 +42,10 @@ public class UsuarioController {
     public RespostaLogarUsuarioDto endpointLogarUsuario(@RequestBody @Valid LogarUsuarioDto dadosUsuario) {
 
         final UsernamePasswordAuthenticationToken usuarioSenha = new UsernamePasswordAuthenticationToken(dadosUsuario.email(), dadosUsuario.senha());
-        final Authentication authenticate = authenticationManager.authenticate(usuarioSenha);
+        final Authentication autenticar = authenticationManager.authenticate(usuarioSenha);
 
-        return new RespostaLogarUsuarioDto(authenticate.getPrincipal().toString());
+        final var token = tokenService.gerarToken((UsuarioEntity) autenticar.getPrincipal());
+
+        return new RespostaLogarUsuarioDto(token);
     }
 }
