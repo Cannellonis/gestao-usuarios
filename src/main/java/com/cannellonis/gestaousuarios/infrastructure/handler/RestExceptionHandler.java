@@ -3,7 +3,9 @@ package com.cannellonis.gestaousuarios.infrastructure.handler;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.cannellonis.gestaousuarios.infrastructure.handler.exceptions.UsuarioJaPossuiCadastroException;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,6 +39,9 @@ public class RestExceptionHandler implements AuthenticationEntryPoint, AccessDen
         problemDetail.setInstance(URI.create(request.getRequestURI()));
 
         final ObjectMapper mapper = new ObjectMapper();
+
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.writeValue(response.getOutputStream(), problemDetail);
     }
 
@@ -54,6 +59,9 @@ public class RestExceptionHandler implements AuthenticationEntryPoint, AccessDen
         problemDetail.setInstance(URI.create(request.getRequestURI()));
 
         final ObjectMapper mapper = new ObjectMapper();
+
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.writeValue(response.getOutputStream(), problemDetail);
     }
 
