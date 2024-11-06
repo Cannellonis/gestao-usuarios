@@ -10,10 +10,25 @@ public class CadastrarUsuarioDtoFactory {
                 "felipinhomaneiro@gmail.com"
                 ,"123456789");
     }
-    public static CadastrarUsuarioDto usuarioNomeInvalido(){
+
+    public static CadastrarUsuarioDto usuarioFormatoNomeInvalido(){
         return new CadastrarUsuarioDto(
-                "",
+                "fe",
                 "felipinhomaneiro@gmail.com"
                 ,"123456789");
+    }
+
+    public static CadastrarUsuarioDto usuarioFormatoEmailInvalido(){
+        return new CadastrarUsuarioDto(
+                "Felipinho Maneiro",
+                "@gmail.com"
+                ,"123456789");
+    }
+
+    public static CadastrarUsuarioDto usuarioFormatoSenhaInvalida(){
+        return new CadastrarUsuarioDto(
+                "Felipinho Maneiro",
+                "felipinhomaneiro@gmail.com"
+                ,"12345");
     }
 }

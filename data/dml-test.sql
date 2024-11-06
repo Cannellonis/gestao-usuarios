@@ -1,0 +1,2 @@
+INSERT INTO (nome,  email,  senha,  criado, atualizado, cargo)
+VALUE("Albertinho Legal", "albertinholegal@gmail.com", "$2a$10$FSV8afqoJHpL4l.X45E68Oa7i0Zn0ZUOzOr5zfkfJEdkhUwwpWhL.", "2024-11-06 00:38:19", "2024-11-06 00:38:19", "USUARIO");
