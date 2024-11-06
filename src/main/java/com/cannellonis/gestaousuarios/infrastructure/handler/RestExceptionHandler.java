@@ -3,7 +3,6 @@ package com.cannellonis.gestaousuarios.infrastructure.handler;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.cannellonis.gestaousuarios.infrastructure.handler.exceptions.UsuarioJaPossuiCadastroException;
-import com.cannellonis.gestaousuarios.infrastructure.handler.exceptions.UsuarioNaoEcontrado;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -74,11 +73,6 @@ public class RestExceptionHandler implements AuthenticationEntryPoint, AccessDen
     @ExceptionHandler(UsuarioJaPossuiCadastroException.class)
     private ProblemDetail usuarioJaPossuiCadastroExceptionHandler(UsuarioJaPossuiCadastroException ex) {
         return problemDetailBuilder(HttpStatus.CONFLICT, "Erro ao cadastrar cliente", ex.getMessage());
-    }
-
-    @ExceptionHandler(UsuarioNaoEcontrado.class)
-    private ProblemDetail usuarioNaoEncontradoExceptionHandler(UsuarioNaoEcontrado ex) {
-        return problemDetailBuilder(HttpStatus.NOT_FOUND, "Usuário com esse email não foi encontrado", ex.getMessage());
     }
 
     @ExceptionHandler(JWTCreationException.class)
