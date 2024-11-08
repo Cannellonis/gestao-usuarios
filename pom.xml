@@ -39,6 +39,8 @@
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
         <h2database.version>2.3.232</h2database.version>
+        <java-jwt.version>4.4.0</java-jwt.version>
+        <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
     </properties>
 
     <!-- spring -->
@@ -78,7 +80,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>4.4.0</version>
+            <version>${java-jwt.version}</version>
         </dependency>
 
         <!-- database -->
@@ -123,7 +125,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
