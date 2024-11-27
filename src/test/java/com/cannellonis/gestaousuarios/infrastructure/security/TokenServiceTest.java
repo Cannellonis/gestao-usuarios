@@ -7,9 +7,13 @@ import static org.mockito.Mockito.when;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.cannellonis.gestaousuarios.factory.UsuarioEntityFactory;
 import com.cannellonis.gestaousuarios.infrastructure.repository.entity.UsuarioEntity;
 import java.lang.reflect.Field;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -48,7 +52,7 @@ class TokenServiceTest {
 
         @Test
         @Disabled("Sem conseguir alterar o atributo 'segredo' da classe TokenService para nulo, não é possível prosseguir com o teste")
-        void deve_retornar_JWTCreationException_quando_segredo_for_nulo() {
+        void deve_retornar_JWTCreationException_quando_segredo_for_diferente() {
             ReflectionTestUtils.setField(service, "segredo", null);
             final UsuarioEntity usuarioEntityMockValido = UsuarioEntityFactory.usuarioEntityValido();
 
@@ -66,15 +70,36 @@ class TokenServiceTest {
     class ValidarToken {
 
         @Test
-        @Disabled("Teste não criado")
         void deve_validar_token_com_sucesso() {
+            final UsuarioEntity usuarioEntityMockValido = UsuarioEntityFactory.usuarioEntityValido();
 
+            final String token = service.gerarToken(usuarioEntityMockValido);
+            final String retornoService = service.validarToken(token);
+
+            assertEquals(usuarioEntityMockValido.getEmail(), retornoService);
         }
 
         @Test
-        @Disabled("Teste não criado")
-        void deve_retornar_JWTVerificationException_quando_segredo_for_diferente() {
+        void deve_retornar_JWTVerificationException_quando_token_for_invalido() {
+            final UsuarioEntity usuarioEntityMockValido = UsuarioEntityFactory.usuarioEntityValido();
 
+            final Algorithm algoritimoIncorreto = Algorithm.HMAC256("segredoIncorreto");
+
+            final Instant dataExpiracaoInvalida = OffsetDateTime.now(ZoneOffset.of("-03:00"))
+                    .minusHours(2)
+                    .toInstant();
+
+            final String tokenIncorreto = JWT.create()
+                    .withIssuer("${spring.application.name}")
+                    .withSubject(usuarioEntityMockValido.getEmail())
+                    .withExpiresAt(dataExpiracaoInvalida)
+                    .sign(algoritimoIncorreto);
+
+            assertThrows(
+                    JWTVerificationException.class,
+                    () -> service.validarToken(tokenIncorreto),
+                    "O token passado não é válido para essa requisição"
+            );
         }
     }
 }
