@@ -1,0 +1,13 @@
+datasource:
+  url: jdbc:mysql://localhost:3306/TURNO_TATICO
+  username: root
+  password: root
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  hikari:
+    minimum-idle: 0
+    maximum-pool-size: 15
+    connection-timeout: 3000
+    idle-timeout: 300000
+    max-lifetime: 600000
+    initialization-fail-timeout: -1
+    validation-timeout: 1000

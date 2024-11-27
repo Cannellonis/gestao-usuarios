@@ -1,35 +1,19 @@
-server: # Configuracao do servidor
-  port: 8000 # Porta que a aplicacao ira rodar
+server:
+  port: 8000
 
-spring: # Configuracao do spring
-  #autoconfigure:
-  #  exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+spring:
   application:
-    name: gestao-usuarios  # Nome que a aplicacao tera
+    name: gestao-usuarios
   profiles:
-    active: dev
+    active: ${AMBIENTE:prod}
 
-  sql: # Configuracao do JPA
-    init: # Ao incializar
-      continue-on-error: true # Se a conexao falhar, a aplicacao continua a rodar
+  sql:
+    init:
+      continue-on-error: true
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/TURNO_TATICO # URL da conexao, no caso, o docker na porta 5432
-    username: root # Usuario para conectar
-    password: root # Senha para conectar
-    driver-class-name: com.mysql.cj.jdbc.Driver # Driver do banco utilizado
-    hikari:
-      minimum-idle: 0
-      maximum-pool-size: 15
-      connection-timeout: 3000
-      idle-timeout: 300000
-      max-lifetime: 600000
-      initialization-fail-timeout: -1
-      validation-timeout: 1000
-
-  jpa:  # Configuracao do JPA
-    generate-ddl: false # Gerar as tabelas mapeadas com @Entity
-    show-sql: false # Exibir codigos SQL no terminal
+  jpa:
+    generate-ddl: false
+    show-sql: false
 
 api:
   security:

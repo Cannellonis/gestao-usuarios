@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.cannellonis</groupId>
     <artifactId>gestao-usuarios</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>gestao-usuarios</name>
     <description>API com o foco de fazer operações relacionadas a conta do usuário</description>
     <url/>
@@ -21,7 +21,7 @@
         <developer>
             <name>Helder Davidson Rodrigues Alvarenga</name>
             <email>heldergavioes@hotmail.com</email>
-            <url>https://github.com/Uken49</url>
+            <url>https://www.linkedin.com/in/helder-alvarenga/</url>
         </developer>
     </developers>
     <scm>

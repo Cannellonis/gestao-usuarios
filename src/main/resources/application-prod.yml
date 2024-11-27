@@ -1,0 +1,13 @@
+datasource:
+  url: jdbc:mysql://${BD_URL}/TURNO_TATICO
+  username: ${BD_USERNAME}
+  password: ${BD_PASSWORD}
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  hikari:
+    minimum-idle: 0
+    maximum-pool-size: 15
+    connection-timeout: 3000
+    idle-timeout: 300000
+    max-lifetime: 600000
+    initialization-fail-timeout: -1
+    validation-timeout: 1000
