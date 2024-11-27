@@ -19,7 +19,7 @@ public class TokenService {
 
     public String gerarToken(UsuarioEntity usuario) {
         try {
-            final Algorithm algoritimo = Algorithm.HMAC256(segredo);
+            final Algorithm algoritimo = gerarAlgoritimo();
 
             return JWT.create()
                     .withIssuer("${spring.application.name}")
@@ -33,7 +33,7 @@ public class TokenService {
 
     public String validarToken(String token) {
         try {
-            final Algorithm algoritimo = Algorithm.HMAC256(segredo);
+            final Algorithm algoritimo = gerarAlgoritimo();
 
             return JWT.require(algoritimo)
                     .withIssuer("${spring.application.name}")
@@ -49,5 +49,9 @@ public class TokenService {
         return OffsetDateTime.now(ZoneOffset.of("-03:00"))
                 .plusHours(2)
                 .toInstant();
+    }
+
+    private Algorithm gerarAlgoritimo() {
+        return Algorithm.HMAC256(segredo);
     }
 }
